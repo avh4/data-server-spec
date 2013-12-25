@@ -9,6 +9,17 @@ end
 SERVER_URL = ENV['SERVER_URL'] or raise '$SERVER_URL not specified'
 
 module HttpUtils
+  def from(last)
+    get "/apps/#{app_id}/from/#{last}"
+    response.code.should == 200
+    json_response
+  end
+
+  def add(*pairs)
+    post_json "/apps/#{app_id}", pairs
+    response.code.should == 202
+  end
+
   def url(path)
     URI::encode "#{SERVER_URL}#{path}"
   end
