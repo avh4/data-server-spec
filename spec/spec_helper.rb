@@ -3,7 +3,7 @@ require 'etc'
 require 'httparty'
 
 def unique_id
-  "#{Etc.getlogin}@#{Socket.gethostname} #{Time.now}"
+  "#{Etc.getlogin}@#{Socket.gethostname} #{Time.now} #{SecureRandom.uuid}"
 end
 
 SERVER_URL = ENV['SERVER_URL'] or raise '$SERVER_URL not specified'

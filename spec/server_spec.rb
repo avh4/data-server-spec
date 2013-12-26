@@ -38,7 +38,7 @@ describe 'data server' do
       last = 0
       get "/apps/#{app_id}/from/#{last}", { 'X-User-ID' => user_id }
       response.code.should == 200
-      json_response.should be_transactions [["k1", "v1"]]
+      json_response.should be_transactions [["key", "user"]]
     end
   end
 end
