@@ -7,7 +7,7 @@ describe 'data server' do
 
   it 'should start with no data' do
     last = 0
-    get "/apps/#{app_id}/from/#{last}", { 'X-User-ID' => user_id }
+    get "/apps/#{app_id}?last=#{last}", { 'X-User-ID' => user_id }
     response.code.should == 200
     json_response.should == []
   end
@@ -19,7 +19,7 @@ describe 'data server' do
       response.code.should == 202
 
       last = 0
-      get "/apps/#{app_id}/from/#{last}", { 'X-User-ID' => user_id }
+      get "/apps/#{app_id}?last=#{last}", { 'X-User-ID' => user_id }
       response.code.should == 200
       json_response.should be_transactions [["k1", "v1"]]
     end
@@ -36,7 +36,7 @@ describe 'data server' do
       response.code.should == 202
 
       last = 0
-      get "/apps/#{app_id}/from/#{last}", { 'X-User-ID' => user_id }
+      get "/apps/#{app_id}?last=#{last}", { 'X-User-ID' => user_id }
       response.code.should == 200
       json_response.should be_transactions [["key", "user"]]
     end
