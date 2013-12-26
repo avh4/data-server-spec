@@ -9,29 +9,19 @@ end
 SERVER_URL = ENV['SERVER_URL'] or raise '$SERVER_URL not specified'
 
 module HttpUtils
-  def from(last)
-    get "/apps/#{app_id}/from/#{last}"
-    response.code.should == 200
-    json_response
-  end
-
-  def add(*pairs)
-    post_json "/apps/#{app_id}", pairs
-    response.code.should == 202
-  end
-
   def url(path)
     URI::encode "#{SERVER_URL}#{path}"
   end
 
-  def get(path)
-    @response = HTTParty.get(url(path))
+  def get(path, headers = {})
+    @response = HTTParty.get(url(path),
+          headers: headers)
   end
 
-  def post_json(path, json)
+  def post_json(path, json, headers = {})
     @response = HTTParty.post(url(path),
           body: json.to_json,
-          headers: { 'Content-Type' => 'application/json'})
+          headers: { 'Content-Type' => 'application/json'}.merge(headers))
   end
 
   def response
